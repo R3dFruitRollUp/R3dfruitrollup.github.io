@@ -29,3 +29,36 @@ window.addEventListener('load', function () {
     projectsContainer.appendChild(projectCard);
   });
 });
+
+
+// ... existing code ...
+
+function navigateTo(hash) {
+  const sections = document.querySelectorAll("section");
+
+  sections.forEach((section) => {
+    if (section.id === hash) {
+      section.classList.add("active");
+    } else {
+      section.classList.remove("active");
+    }
+  });
+}
+
+function handleHashChange() {
+  const hash = location.hash.substring(1);
+  navigateTo(hash);
+}
+
+window.addEventListener("load", function () {
+  // Populate projects
+  // ... existing code ...
+
+  // Set up routing
+  window.addEventListener("hashchange", handleHashChange);
+  if (location.hash) {
+    handleHashChange();
+  } else {
+    location.hash = "#about";
+  }
+});
