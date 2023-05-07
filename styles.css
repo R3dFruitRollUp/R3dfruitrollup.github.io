@@ -1,7 +1,6 @@
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
 }
 
 header {
@@ -34,14 +33,20 @@ section {
   padding: 20px 0;
 }
 
-#projects {
+section.active {
+  display: block;
+}
+
+.projects-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  gap: 20px;
 }
 
 .project-card {
-  width: 30%;
+  width: 100%;
+  max-width: 300px;
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
@@ -61,17 +66,4 @@ footer {
   color: white;
   text-align: center;
   padding: 20px 0;
-}
-
-/* Responsive styling */
-@media screen and (max-width: 1024px) {
-  .project-card {
-    width: 45%;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .project-card {
-    width: 100%;
-  }
 }
