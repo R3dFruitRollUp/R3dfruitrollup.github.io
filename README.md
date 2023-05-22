@@ -1,5 +1,4 @@
 # R3dfruitrollup.github.io
-# R3dfruitrollup.github.io
 
 Welcome to the repository for the personal portfolio website `R3dfruitrollup.github.io`.
 
@@ -11,7 +10,7 @@ Welcome to the repository for the personal portfolio website `R3dfruitrollup.git
 
 - Detailed about section
 - Comprehensive display of projects and experience
-- Overview of education, specifically from University of Michigan-Flint, in Finance & Economics&#8203;`oaicite:{"index":2,"metadata":{"title":"R3dfruitrollup.github.io","url":"https://R3dfruitrollup.github.io","text":"Education\n\nUniversity of Michigan-Flint\n\nFinance & Economics\n\nAugust 2021 - August 2023","pub_date":null}}`&#8203;
+- Overview of education, specifically from University of Michigan-Flint, in Finance & Economics
 
 ## Installation
 
