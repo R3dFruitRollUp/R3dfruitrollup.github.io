@@ -52,10 +52,11 @@ body {
   }
   
   .project-card {
-    flex: 1 0 21%;  /* Grow, shrink, base width */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 1%;
+    width: calc(50% - 40px); 
+    max-width: 300px;         
     padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
   }
   
   @media screen and (max-width: 600px) {
@@ -87,9 +88,3 @@ body {
     margin: 10px 0;
     text-align: center; 
   }
-  
-  section {
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  
