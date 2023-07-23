@@ -19,16 +19,8 @@ window.addEventListener('load', function () {
 
   /*const projectsContainer = document.getElementById('projects');*/
   const projectsContainer = document.querySelector('.projects-container');
-  projects.forEach((project) => {
-    const projectCard = document.createElement('div');
-    projectCard.classList.add('project-card');
-    projectCard.innerHTML = `
-      <img src="${project.imageUrl}" alt="${project.title}">
-      <h3>${project.title}</h3>
-      <p>${project.description}</p>
-    `;
-    projectsContainer.appendChild(projectCard);
-  });
+
+
 
 
 
@@ -97,16 +89,5 @@ function isLeap(year) {
       return "Not leap year.";
   }
 }
-
-  projects.forEach((project) => {
-    const projectCard = document.createElement('div');
-    projectCard.classList.add('project-card', 'col-md-3', 'col-sm-6', 'my-3'); // Here
-    projectCard.innerHTML = `
-      <img src="${project.imageUrl}" alt="${project.title}">
-      <h3>${project.title}</h3>
-      <p>${project.description}</p>
-  ` ;
-    projectsContainer.appendChild(projectCard);
-});
 
 });
