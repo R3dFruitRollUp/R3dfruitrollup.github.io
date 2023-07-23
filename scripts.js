@@ -17,7 +17,8 @@ window.addEventListener('load', function () {
     },
   ];
 
-  const projectsContainer = document.getElementById('projects');
+  /*const projectsContainer = document.getElementById('projects');*/
+  const projectsContainer = document.querySelector('.projects-container');
   projects.forEach((project) => {
     const projectCard = document.createElement('div');
     projectCard.classList.add('project-card');
