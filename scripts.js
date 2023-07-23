@@ -62,3 +62,38 @@ window.addEventListener("load", function () {
     location.hash = "#about";
   }
 });
+
+
+function bmiCalculator(weight, height) {
+  let bmi = weight / (height * height);
+  bmi = Math.round(bmi);
+  
+  let message;
+  if (bmi < 18.5) {
+      message = "Your BMI is " + bmi + ", so you are underweight.";
+  } else if (bmi >= 18.5 && bmi <= 24.9) {
+      message = "Your BMI is " + bmi + ", so you have a normal weight.";
+  } else if (bmi > 24.9) {
+      message = "Your BMI is " + bmi + ", so you are overweight.";
+  }
+  
+  return message;
+}
+
+
+function isLeap(year) {
+  if (year % 4 === 0) {
+      if (year % 100 === 0) {
+          if (year % 400 === 0) {
+              return "Leap year.";
+          } else {
+              return "Not leap year.";
+          }
+      } else {
+          return "Leap year.";
+      }
+  } else {
+      return "Not leap year.";
+  }
+}
+
