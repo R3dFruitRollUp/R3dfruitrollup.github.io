@@ -40,9 +40,6 @@ body {
     padding: 20px 0;
   }
   
-  section.active {
-    display: block;
-  }
   
   .projects-container {
     display: flex;
@@ -52,7 +49,6 @@ body {
   }
   
   .project-card {
-    flex: 1 0 21%;  /* Grow, shrink, base width */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin: 1%;
     padding: 20px;

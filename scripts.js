@@ -90,4 +90,33 @@ function isLeap(year) {
   }
 }
 
+projects.forEach((project) => {
+  const projectCard = document.createElement('div');
+  projectCard.classList.add('project-card', 'col-md-3', 'col-sm-6', 'my-3');
+  projectCard.innerHTML = `
+    <img src="${project.imageUrl}" alt="${project.title}">
+    <h3>${project.title}</h3>
+    <p>${project.description}</p>
+  `;
+  projectsContainer.appendChild(projectCard);
+});
+
+
+sections.forEach((section) => {
+  if (section.id === hash) {
+    section.classList.add("active");
+  } else {
+    section.classList.remove("active");
+  }
+});
+
+sections.forEach((section) => {
+  if (section.id === hash) {
+    section.classList.remove("d-none");
+  } else {
+    section.classList.add("d-none");
+  }
+});
+
+
 });
