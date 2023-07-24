@@ -1,70 +1,75 @@
-$( document ).ready(function() {
-  // Main variables
-    var $aboutTitle = $('.about-myself .content h2');
-    var $developmentWrapper = $('.development-wrapper');
-    var developmentIsVisible = false;
-
-
-  /* ####### HERO SECTION ####### */
-
-  $('.hero .content .header').delay(500).animate({
-    'opacity':'1',
-    'top': '50%'
-  },1000);
-
-
-  $(window).scroll( function(){
-
-    var bottom_of_window = $(window).scrollTop() + $(window).height();
-
-    /* ##### ABOUT MYSELF SECTION #### */
-    if( bottom_of_window > ($aboutTitle.offset().top + $aboutTitle.outerHeight())){
-      $('.about-myself .content h2').addClass('aboutTitleVisible');
-    } 
-  /* ##### EXPERIENCE SECTION #### */
-
-      // Check the location of each element hidden */
-      $('.experience .content .hidden').each( function(i){
-
-          var bottom_of_object = $(this).offset().top + $(this).outerHeight();
-
-          /* If the object is completely visible in the window, fadeIn it */
-          if( bottom_of_window > bottom_of_object ){
-
-            $(this).animate({
-              'opacity':'1',
-              'margin-left': '0'
-            },600);
-          }
-      });
-
-  /*###### SKILLS SECTION ######*/
-
-    var middle_of_developmentWrapper = $developmentWrapper.offset().top + $developmentWrapper.outerHeight()/2;
-
-    if((bottom_of_window > middle_of_developmentWrapper)&& (developmentIsVisible == false)){
-
-      $('.skills-bar-container li').each( function(){
-
-        var $barContainer = $(this).find('.bar-container');
-        var dataPercent = parseInt($barContainer.data('percent'));
-        var elem = $(this).find('.progressbar');
-        var percent = $(this).find('.percent');
-        var width = 0;
-
-        var id = setInterval(frame, 15);
-
-        function frame() {
-          if (width >= dataPercent) {
-              clearInterval(id);
-          } else {
-            width++;
-            elem.css("width", width+"%");
-            percent.html(width+" %");
-          }
-        }
-      });
-      developmentIsVisible = true;
-    }
-  }); // -- End window scroll --
+// NAVIGATION LOGO SCROLL TOP
+$('.logo').on('click', function(e) {
+  e.preventDefault();
+  $('.nav-toggle').removeClass('open');
+  $('.menu-left').removeClass('collapse');
+  $('html, body').animate({
+    scrollTop: 0
+  }, 750, 'easeInOutQuad')
 });
+// LINKS TO ANCHORS
+$('a[href^="#"]').on('click', function(event) {
+
+  var $target = $(this.getAttribute('href'));
+
+  if($target.length) {
+    event.preventDefault();
+    $('html, body').stop().animate({
+      scrollTop: $target.offset().top
+    }, 750, 'easeInOutQuad');
+  }
+});
+
+// TOGGLE HAMBURGER & COLLAPSE NAV
+$('.nav-toggle').on('click', function() {
+  $(this).toggleClass('open');
+  $('.menu-left').toggleClass('collapse');
+});
+// REMOVE X & COLLAPSE NAV ON ON CLICK
+$('.menu-left a').on('click', function() {
+  $('.nav-toggle').removeClass('open');
+  $('.menu-left').removeClass('collapse');
+});
+
+// SHOW/HIDE NAV
+
+// Hide Header on on scroll down
+var didScroll;
+var lastScrollTop = 0;
+var delta = 5;
+var navbarHeight = $('header').outerHeight();
+
+$(window).scroll(function(event){
+    didScroll = true;
+});
+
+setInterval(function() {
+    if (didScroll) {
+        hasScrolled();
+        didScroll = false;
+    }
+}, 250);
+
+function hasScrolled() {
+    var st = $(this).scrollTop();
+
+    // Make sure they scroll more than delta
+    if(Math.abs(lastScrollTop - st) <= delta)
+        return;
+
+    // If they scrolled down and are past the navbar, add class .nav-up.
+    // This is necessary so you never see what is "behind" the navbar.
+    if (st > lastScrollTop && st > navbarHeight){
+        // Scroll Down
+        $('header').removeClass('show-nav').addClass('hide-nav');
+        $('.nav-toggle').removeClass('open');
+        $('.menu-left').removeClass('collapse');
+    } else {
+        // Scroll Up
+        if(st + $(window).height() < $(document).height()) {
+            $('header').removeClass('hide-nav').addClass('show-nav');
+        }
+    }
+
+    lastScrollTop = st;
+}
