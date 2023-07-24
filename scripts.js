@@ -1,4 +1,5 @@
 window.addEventListener('load', function () {
+  // Populate projects
   const projects = [
     {
       title: 'Project 1',
@@ -17,14 +18,26 @@ window.addEventListener('load', function () {
     },
   ];
 
-  /*const projectsContainer = document.getElementById('projects');*/
   const projectsContainer = document.querySelector('.projects-container');
+  projects.forEach((project) => {
+    const projectCard = document.createElement('div');
+    projectCard.classList.add('project-card');
+    projectCard.innerHTML = `
+      <img src="${project.imageUrl}" alt="${project.title}">
+      <h3>${project.title}</h3>
+      <p>${project.description}</p>
+    `;
+    projectsContainer.appendChild(projectCard);
+  });
 
-
-
-
-
-// ... existing code ...
+  // Set up routing
+  window.addEventListener("hashchange", handleHashChange);
+  if (location.hash) {
+    handleHashChange();
+  } else {
+    location.hash = "#about";
+  }
+});
 
 function navigateTo(hash) {
   const sections = document.querySelectorAll("section");
@@ -43,20 +56,6 @@ function handleHashChange() {
   navigateTo(hash);
 }
 
-window.addEventListener("load", function () {
-  // Populate projects
-  // ... existing code ...
-
-  // Set up routing
-  window.addEventListener("hashchange", handleHashChange);
-  if (location.hash) {
-    handleHashChange();
-  } else {
-    location.hash = "#about";
-  }
-});
-
-
 function bmiCalculator(weight, height) {
   let bmi = weight / (height * height);
   bmi = Math.round(bmi);
@@ -73,7 +72,6 @@ function bmiCalculator(weight, height) {
   return message;
 }
 
-
 function isLeap(year) {
   if (year % 4 === 0) {
       if (year % 100 === 0) {
@@ -89,34 +87,3 @@ function isLeap(year) {
       return "Not leap year.";
   }
 }
-
-projects.forEach((project) => {
-  const projectCard = document.createElement('div');
-  projectCard.classList.add('project-card', 'col-md-3', 'col-sm-6', 'my-3');
-  projectCard.innerHTML = `
-    <img src="${project.imageUrl}" alt="${project.title}">
-    <h3>${project.title}</h3>
-    <p>${project.description}</p>
-  `;
-  projectsContainer.appendChild(projectCard);
-});
-
-
-sections.forEach((section) => {
-  if (section.id === hash) {
-    section.classList.add("active");
-  } else {
-    section.classList.remove("active");
-  }
-});
-
-sections.forEach((section) => {
-  if (section.id === hash) {
-    section.classList.remove("d-none");
-  } else {
-    section.classList.add("d-none");
-  }
-});
-
-
-});
