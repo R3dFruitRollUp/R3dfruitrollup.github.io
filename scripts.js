@@ -1,89 +1,70 @@
-window.addEventListener('load', function () {
-  // Populate projects
-  const projects = [
-    {
-      title: 'Project 1',
-      description: 'A responsive website for a local business.',
-      imageUrl: 'https://via.placeholder.com/150/0000FF/808080?Text=Placeholder',
-    },
-    {
-      title: 'Project 2',
-      description: 'A single-page web app using React.js.',
-      imageUrl: 'https://via.placeholder.com/150/0000FF/808080?Text=Placeholder',
-    },
-    {
-      title: 'Project 3',
-      description: 'A blog site built with Jekyll and GitHub Pages.',
-      imageUrl: 'https://via.placeholder.com/150/0000FF/808080?Text=Placeholder',
-    },
-  ];
+$( document ).ready(function() {
+  // Main variables
+    var $aboutTitle = $('.about-myself .content h2');
+    var $developmentWrapper = $('.development-wrapper');
+    var developmentIsVisible = false;
 
-  const projectsContainer = document.querySelector('.projects-container');
-  projects.forEach((project) => {
-    const projectCard = document.createElement('div');
-    projectCard.classList.add('project-card');
-    projectCard.innerHTML = `
-      <img src="${project.imageUrl}" alt="${project.title}">
-      <h3>${project.title}</h3>
-      <p>${project.description}</p>
-    `;
-    projectsContainer.appendChild(projectCard);
-  });
 
-  // Set up routing
-  window.addEventListener("hashchange", handleHashChange);
-  if (location.hash) {
-    handleHashChange();
-  } else {
-    location.hash = "#about";
-  }
-});
+  /* ####### HERO SECTION ####### */
 
-function navigateTo(hash) {
-  const sections = document.querySelectorAll("section");
+  $('.hero .content .header').delay(500).animate({
+    'opacity':'1',
+    'top': '50%'
+  },1000);
 
-  sections.forEach((section) => {
-    if (section.id === hash) {
-      section.classList.add("active");
-    } else {
-      section.classList.remove("active");
-    }
-  });
-}
 
-function handleHashChange() {
-  const hash = location.hash.substring(1);
-  navigateTo(hash);
-}
+  $(window).scroll( function(){
 
-function bmiCalculator(weight, height) {
-  let bmi = weight / (height * height);
-  bmi = Math.round(bmi);
-  
-  let message;
-  if (bmi < 18.5) {
-      message = "Your BMI is " + bmi + ", so you are underweight.";
-  } else if (bmi >= 18.5 && bmi <= 24.9) {
-      message = "Your BMI is " + bmi + ", so you have a normal weight.";
-  } else if (bmi > 24.9) {
-      message = "Your BMI is " + bmi + ", so you are overweight.";
-  }
-  
-  return message;
-}
+    var bottom_of_window = $(window).scrollTop() + $(window).height();
 
-function isLeap(year) {
-  if (year % 4 === 0) {
-      if (year % 100 === 0) {
-          if (year % 400 === 0) {
-              return "Leap year.";
-          } else {
-              return "Not leap year.";
+    /* ##### ABOUT MYSELF SECTION #### */
+    if( bottom_of_window > ($aboutTitle.offset().top + $aboutTitle.outerHeight())){
+      $('.about-myself .content h2').addClass('aboutTitleVisible');
+    } 
+  /* ##### EXPERIENCE SECTION #### */
+
+      // Check the location of each element hidden */
+      $('.experience .content .hidden').each( function(i){
+
+          var bottom_of_object = $(this).offset().top + $(this).outerHeight();
+
+          /* If the object is completely visible in the window, fadeIn it */
+          if( bottom_of_window > bottom_of_object ){
+
+            $(this).animate({
+              'opacity':'1',
+              'margin-left': '0'
+            },600);
           }
-      } else {
-          return "Leap year.";
-      }
-  } else {
-      return "Not leap year.";
-  }
-}
+      });
+
+  /*###### SKILLS SECTION ######*/
+
+    var middle_of_developmentWrapper = $developmentWrapper.offset().top + $developmentWrapper.outerHeight()/2;
+
+    if((bottom_of_window > middle_of_developmentWrapper)&& (developmentIsVisible == false)){
+
+      $('.skills-bar-container li').each( function(){
+
+        var $barContainer = $(this).find('.bar-container');
+        var dataPercent = parseInt($barContainer.data('percent'));
+        var elem = $(this).find('.progressbar');
+        var percent = $(this).find('.percent');
+        var width = 0;
+
+        var id = setInterval(frame, 15);
+
+        function frame() {
+          if (width >= dataPercent) {
+              clearInterval(id);
+          } else {
+            width++;
+            elem.css("width", width+"%");
+            percent.html(width+" %");
+          }
+        }
+      });
+      developmentIsVisible = true;
+    }
+  }); // -- End window scroll --
+});
