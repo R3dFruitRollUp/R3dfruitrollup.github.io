@@ -17,19 +17,18 @@ window.addEventListener('load', function () {
     },
   ];
 
-  const projectsContainer = document.getElementById('projects');
+   const projectsContainer = document.querySelector('.projects-container');
   projects.forEach((project) => {
     const projectCard = document.createElement('div');
     projectCard.classList.add('project-card');
     projectCard.innerHTML = `
+      <h4>${project.title}</h4>
       <img src="${project.imageUrl}" alt="${project.title}">
-      <h3>${project.title}</h3>
       <p>${project.description}</p>
     `;
     projectsContainer.appendChild(projectCard);
   });
 });
-
 
 // ... existing code ...
 
