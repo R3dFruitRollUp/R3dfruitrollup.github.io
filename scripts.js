@@ -1,75 +1,98 @@
-// NAVIGATION LOGO SCROLL TOP
-$('.logo').on('click', function(e) {
-  e.preventDefault();
-  $('.nav-toggle').removeClass('open');
-  $('.menu-left').removeClass('collapse');
-  $('html, body').animate({
-    scrollTop: 0
-  }, 750, 'easeInOutQuad')
+window.addEventListener('load', function () {
+  const projects = [
+    {
+      title: 'Project 1',
+      description: 'A responsive website for a local business.',
+      imageUrl: 'https://via.placeholder.com/150/0000FF/808080?Text=Placeholder',
+    },
+    {
+      title: 'Project 2',
+      description: 'A single-page web app using React.js.',
+      imageUrl: 'https://via.placeholder.com/150/0000FF/808080?Text=Placeholder',
+    },
+    {
+      title: 'Project 3',
+      description: 'A blog site built with Jekyll and GitHub Pages.',
+      imageUrl: 'https://via.placeholder.com/150/0000FF/808080?Text=Placeholder',
+    },
+  ];
+
+  const projectsContainer = document.getElementById('projects');
+  projects.forEach((project) => {
+    const projectCard = document.createElement('div');
+    projectCard.classList.add('project-card');
+    projectCard.innerHTML = `
+      <img src="${project.imageUrl}" alt="${project.title}">
+      <h3>${project.title}</h3>
+      <p>${project.description}</p>
+    `;
+    projectsContainer.appendChild(projectCard);
+  });
 });
-// LINKS TO ANCHORS
-$('a[href^="#"]').on('click', function(event) {
 
-  var $target = $(this.getAttribute('href'));
 
-  if($target.length) {
-    event.preventDefault();
-    $('html, body').stop().animate({
-      scrollTop: $target.offset().top
-    }, 750, 'easeInOutQuad');
+// ... existing code ...
+
+function navigateTo(hash) {
+  const sections = document.querySelectorAll("section");
+
+  sections.forEach((section) => {
+    if (section.id === hash) {
+      section.classList.add("active");
+    } else {
+      section.classList.remove("active");
+    }
+  });
+}
+
+function handleHashChange() {
+  const hash = location.hash.substring(1);
+  navigateTo(hash);
+}
+
+window.addEventListener("load", function () {
+  // Populate projects
+  // ... existing code ...
+
+  // Set up routing
+  window.addEventListener("hashchange", handleHashChange);
+  if (location.hash) {
+    handleHashChange();
+  } else {
+    location.hash = "#about";
   }
 });
 
-// TOGGLE HAMBURGER & COLLAPSE NAV
-$('.nav-toggle').on('click', function() {
-  $(this).toggleClass('open');
-  $('.menu-left').toggleClass('collapse');
-});
-// REMOVE X & COLLAPSE NAV ON ON CLICK
-$('.menu-left a').on('click', function() {
-  $('.nav-toggle').removeClass('open');
-  $('.menu-left').removeClass('collapse');
-});
 
-// SHOW/HIDE NAV
+function bmiCalculator(weight, height) {
+  let bmi = weight / (height * height);
+  bmi = Math.round(bmi);
+  
+  let message;
+  if (bmi < 18.5) {
+      message = "Your BMI is " + bmi + ", so you are underweight.";
+  } else if (bmi >= 18.5 && bmi <= 24.9) {
+      message = "Your BMI is " + bmi + ", so you have a normal weight.";
+  } else if (bmi > 24.9) {
+      message = "Your BMI is " + bmi + ", so you are overweight.";
+  }
+  
+  return message;
+}
 
-// Hide Header on on scroll down
-var didScroll;
-var lastScrollTop = 0;
-var delta = 5;
-var navbarHeight = $('header').outerHeight();
 
-$(window).scroll(function(event){
-    didScroll = true;
-});
-
-setInterval(function() {
-    if (didScroll) {
-        hasScrolled();
-        didScroll = false;
-    }
-}, 250);
-
-function hasScrolled() {
-    var st = $(this).scrollTop();
-
-    // Make sure they scroll more than delta
-    if(Math.abs(lastScrollTop - st) <= delta)
-        return;
-
-    // If they scrolled down and are past the navbar, add class .nav-up.
-    // This is necessary so you never see what is "behind" the navbar.
-    if (st > lastScrollTop && st > navbarHeight){
-        // Scroll Down
-        $('header').removeClass('show-nav').addClass('hide-nav');
-        $('.nav-toggle').removeClass('open');
-        $('.menu-left').removeClass('collapse');
-    } else {
-        // Scroll Up
-        if(st + $(window).height() < $(document).height()) {
-            $('header').removeClass('hide-nav').addClass('show-nav');
-        }
-    }
-
-    lastScrollTop = st;
+function isLeap(year) {
+  if (year % 4 === 0) {
+      if (year % 100 === 0) {
+          if (year % 400 === 0) {
+              return "Leap year.";
+          } else {
+              return "Not leap year.";
+          }
+      } else {
+          return "Leap year.";
+      }
+  } else {
+      return "Not leap year.";
+  }
 }
